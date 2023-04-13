@@ -31,21 +31,25 @@ def update_rankings(text):
         text.insert(tk.END, "账户号：{}，积分：{}\n".format(ranking["account"], ranking["score"]))
 
 def rank_menu():
-    root = tk.Tk()
+    root = tk.Toplevel()
     root.title("排行")
-    center_window(root,400,450)
-    canvas = tk.Canvas(root, width=400, height=450)
+    center_window(root,630,627)
+    bg_img = tk.PhotoImage(file='E:\\code\\mycode\\source\\rank_menu.png')
+
+    # 创建画布
+    canvas = tk.Canvas(root, width=630, height=627)
     canvas.pack()
-    # 创建玩家排名情况文本框
-    rankings_label = tk.Label(root, text="玩家积分排名情况", font=("Helvetica", 14))
-    rankings_label.place(relx=0.3,rely=0.03)
+
+    canvas.create_image(0, 0, image=bg_img, anchor='nw')
 
     # 创建滑动窗口
-    text = scrolledtext.ScrolledText(root, width=40, height=10)
-    text.place(relx=0.15,rely=0.15,height=300)
+    text = scrolledtext.ScrolledText(root, width=24, height=20)
+    text.place(relx=0.365,rely=0.25,height=290)
 
     # 创建更新排名按钮
-    update_button = tk.Button(root, text="更新排名", command=update_rankings(text))
-    update_button.place(relx=0.42,rely=0.9)
+    update_button = tk.Button(root, text="更新排名",font=('华文行楷',14),command=update_rankings(text))
+    update_button.place(relx=0.45,rely=0.89,width=81,height=50)
 
     root.mainloop()
+
+# rank_menu()

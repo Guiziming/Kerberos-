@@ -14,6 +14,9 @@ def center_window(window, width, height):
     # 设置窗口位置
     window.geometry(f"{width}x{height}+{x}+{y}")
 
+def surrender():
+    pass
+
 def play_menu():
     # 定义时间限制
     time_limit = 30
@@ -21,12 +24,13 @@ def play_menu():
     # 创建主窗口
     root = tk.Toplevel()
     root.title("五子棋")
-    center_window(root,850,600)
+    center_window(root,1050,650)
     # 加载背景图片
-    bg_img = tk.PhotoImage(file='E:\code\mycode\source\play_menu.png')
-
+    #kitty_best/ameng_new/yugui_new
+    bg_img = tk.PhotoImage(file='E:\\code\\mycode\\source\\base_final.png')
+    img=tk.PhotoImage(file='E:\\code\\mycode\\source\\renshu.png')
     # 创建画布
-    canvas = tk.Canvas(root, width=850, height=600)
+    canvas = tk.Canvas(root, width=1050, height=650)
     canvas.pack()
 
     # 绘制背景图片
@@ -35,39 +39,31 @@ def play_menu():
     # 绘制棋盘
     for i in range(15):
         for j in range(15):
-            canvas.create_rectangle(50 + j * 35, 50 + i * 35, 85 + j * 35, 85 + i * 35, outline='#000000', fill='#ffffff')
+            canvas.create_rectangle(50 + j * 35, 50 + i * 35, 85 + j * 35, 85 + i * 35, outline='#000000')
 
     # 绘制网格线
     for i in range(14):
         canvas.create_line(50, 85 + i * 35, 550, 85 + i * 35)
         canvas.create_line(85 + i * 35, 50, 85 + i * 35, 550)
 
-    # 创建玩家一、玩家二状态栏
-    player1_label = tk.Label(root, text="玩家一", font=("Arial", 16))
-    player1_label.place(x=600, y=150)
-    player2_label = tk.Label(root, text="玩家二", font=("Arial", 16))
-    player2_label.place(x=600, y=250)
-
-    player1_label = tk.Label(root, text="积分", font=("Arial", 16))
-    player1_label.place(x=600, y=200)
-    player2_label = tk.Label(root, text="积分", font=("Arial", 16))
-    player2_label.place(x=600, y=300)
-
     # 创建玩家一、玩家二文本框
     player1_name = tk.Entry(root, font=("Arial", 14), width=10, state='disabled')
-    player1_name.place(x=700, y=150)
+    player1_name.place(x=800, y=200)
     player1_score = tk.Entry(root, font=("Arial", 14), width=10, state='disabled')
-    player1_score.place(x=700, y=200)
+    player1_score.place(x=800, y=250)
     player2_name = tk.Entry(root, font=("Arial", 14), width=10, state='disabled')
-    player2_name.place(x=700, y=250)
+    player2_name.place(x=800, y=430)
     player2_score = tk.Entry(root, font=("Arial", 14), width=10, state='disabled')
-    player2_score.place(x=700, y=300)
+    player2_score.place(x=800, y=480)
 
-    #倒计时
-    time_label=tk.Label(root,text="时间",font=("Arial", 16))
-    time_label.place(x=650, y=450)
-    time_entry=tk.Entry(root,font=("Arial", 14),width=10,state='disabled')
-    time_entry.place(x=700,y=450)
+    # 创建认输按钮
+    surrender_button = tk.Button(root,text="认输", font=("华文行楷", 15), command=surrender)
+    surrender_button.place(x=900,y=590,width=80,height=49.44)
+    # #倒计时
+    # time_label=tk.Label(root,text="时间",font=("Arial", 16))
+    # time_label.place(x=650, y=450)
+    # time_entry=tk.Entry(root,font=("Arial", 14),width=10,state='disabled')
+    # time_entry.place(x=850,y=450)
     # 定义落子函数
     def on_click(event):
         start_time = time.time()  # 记录开始时间
