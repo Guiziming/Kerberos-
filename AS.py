@@ -89,6 +89,7 @@ def unpacket(packet):
     print("数据", data)
     return type_message,data
 
+
 #传递证书的报文
 def process_message_2001(cont_data):
     # print("已接收到消息类型为2001的数据段,是传递证书的报文")
@@ -102,9 +103,9 @@ def process_message_2001(cont_data):
     # message=packet_head(b'65432',str(serial_num).encode(),b'2001',b'0',b'00000000',b'sxwnbb')
     message=packet_head(b'65432',b'2',b'2001',b'0',b'00000000',b'sxwnbb')
     conn.sendall(message)
-    #状态机输出当前状态
-    result = sm.execute('recv_2001')
-    print(sm.state)  # 输出get_license
+    flag='recv_2001'
+    return flag
+    
 
 def process_message_2002():
     pass
@@ -141,7 +142,11 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             # 发送响应消息
             # 调用对应值的处理函数
             if type_message in process_dict:
-                process_dict[type_message](cont_data)
+                flag=process_dict[type_message](cont_data)
+                print("test",flag)
+                result = sm.execute(flag)
+                print(sm.state)  # 输出get_license
+
             else:
                 # 处理其他情况
                 print("可能有错误")
