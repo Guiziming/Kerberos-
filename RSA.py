@@ -60,7 +60,7 @@ def ext_gcd(a, b):
 def getKey():
     p = get_prime_num()
     q = get_prime_num()
-    e = 11
+    e = 23
     n = p * q
     fyn = (p - 1) * (q - 1)
     d, y, g = ext_gcd(e, fyn)

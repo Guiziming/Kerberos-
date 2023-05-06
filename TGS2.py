@@ -263,9 +263,9 @@ def process_AS_message_2001(cont_data,s):
     print("secret_key:",secret_key)
     print("所使用的TGS私钥d,n为: ",d_tgs,n_tgs)
     key=rsa.rsa_decrypt(secret_key,d_tgs,n_tgs)
-
     print("我得到的DES key为: ",key)
-    save_sql_key(id,int(key))
+    
+    save_sql_key(id,key.decode())
     flag='recv_2001'
     return flag
 
@@ -314,6 +314,7 @@ def send_thread():
         else:
             # 处理其他情况
             print("可能有错误")
+        
 
 # 创建监听线程
 listen_thread = threading.Thread(target=receive_thread)

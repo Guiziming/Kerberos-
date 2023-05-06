@@ -224,10 +224,11 @@ def handle(plaintext, keys):
 
 # 加密操作
 # 传入参数：plaintext->用户键入明文,k->密钥
-def encryption(plaintext,k):
+def encryption(plaintext,key):
     binar_plaintext = change_str_to_bin(plaintext)
     binar_plaintext_block = divide_block(binar_plaintext)
     binar_ciphertext = []
+    k=change_str_to_bin(key)
     keys = get_per_key(k)
     for block in binar_plaintext_block:
         pos_ip = displace(block, pos_IP)
@@ -245,13 +246,14 @@ def encryption(plaintext,k):
 
 # 解密操作
 # 传入参数：ciphertext->用户键入密文，kk->密钥
-def decrypt(ciphertext,kk):
+def decrypt(ciphertext,key):
     ciphertext_b = binascii.a2b_hex(ciphertext)
     result_bin=[]
     for num in ciphertext_b:
         result_bin.append(bin(num)[2:].zfill(8))
     binar_ciphertext=''.join(result_bin)
     binar_plaintext = []
+    kk=change_str_to_bin(key)
     pos_keys = get_per_key(kk)
     neg_keys = pos_keys[::-1]
     binar_ciphertext_block = divide_block(binar_ciphertext)
@@ -265,6 +267,9 @@ def decrypt(ciphertext,kk):
     temp = []
     for member in divide_binary:
         temp.append(int(member, 2))
-    result = bytes(temp).decode()
-    return result
+    result1 = list(map(str, temp))
+    result = ''.join(result1)
+    result3 = bytes(temp).decode()
+    print("******resui*****",result3,type(result3))
+    return result3
 
