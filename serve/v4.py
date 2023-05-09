@@ -108,22 +108,33 @@ def handle_client_request(client_socket,addr):
         socket2.sendall(('Game Start! You are player2 (White).').encode())
         #黑白棋子初始化
         black_chess,white_chess=[],[]
-        wcx,wcy,bcx,bcy=[],[],[],[] 
+        wcx,wcy,bcx,bcy=[],[],[],[]
+        play_count=2 
         # 等待两个玩家依次下棋
         while True:
             # 玩家1下棋
             position1 = socket1.recv(1024)
             #row1, col1 = map(int, position1.split(','))
             print(position1,type(position1))
-             #向玩家二发送黑棋信息           
+                       
             # black_message=position1
+            #接收玩家一的消息并向玩家二发送反馈信息
             if position1.decode()=='认输':
                 print("玩家一认输")
                 text="对方认输"
                 socket2.sendall(text.encode())
-                # socket2.sendall("对方认输")
-                socket1.close()
-                socket2.close()
+                break
+               
+            elif position1.decode()=='我跑了':
+                
+                if play_count==2:
+                    print("走了一个")
+                    play_count=play_count-1
+                    text="对方认输"
+                    socket2.sendall(text.encode())
+                    break
+                else:
+                    break
             else:
                 socket2.sendall(position1)
             col1,row1,color1=position1.decode().split(",")
@@ -140,10 +151,12 @@ def handle_client_request(client_socket,addr):
                 print("黑棋赢了")
                 socket1.sendall(('你赢了').encode())
                 socket2.sendall(('你输了').encode())
+                break
             elif flag_win==0:
                 print("白棋赢了")
                 socket2.sendall(('你赢了').encode())
                 socket1.sendall(('你输了').encode())
+                break
             else:
                 print("游戏继续")
                 socket2.sendall(('游戏继续').encode())
@@ -151,14 +164,25 @@ def handle_client_request(client_socket,addr):
 
             # 玩家2下棋
             position2 = socket2.recv(1024)
-            #向玩家一发送白棋信息
+            
             # white_message=position2
+
+            #接收玩家二的消息并向玩家一发送反馈信息
             if position2.decode()=='认输':
-                print("玩家二认输")
+                print("玩家一认输")
                 text="对方认输"
                 socket1.sendall(text.encode())
-                socket1.close()
-                socket2.close()
+                break
+            elif position2.decode()=='我跑了':
+                
+                if play_count==2:
+                    print("走了一个")
+                    play_count=play_count-1
+                    text="对方认输"
+                    socket1.sendall(text.encode())
+                    break
+                else:
+                    break
             else:
                 socket1.sendall(position2)
             # socket1.sendall(position2)
@@ -176,14 +200,16 @@ def handle_client_request(client_socket,addr):
                 print("黑棋赢了")
                 socket1.sendall(('你赢了').encode())
                 socket2.sendall(('你输了').encode())
-                socket1.close()
-                socket2.close()
+                break
+                # socket1.close()
+                # socket2.close()
             elif flag_win==0:
                 print("白棋赢了")
                 socket2.sendall(('你赢了').encode())
                 socket1.sendall(('你输了').encode())
-                socket1.close()
-                socket2.close()
+                break
+                # socket1.close()
+                # socket2.close()
             else:
                 print("游戏继续")
                 socket2.sendall(('游戏继续').encode())
