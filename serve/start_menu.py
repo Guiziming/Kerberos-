@@ -1,5 +1,5 @@
 import tkinter as tk
-from play_menu_robot import play_menu_robot
+from play_menu_robot1 import robot_game
 from play_menu_human4 import human_game
 from shop_menu import shop_menu
 from rank_menu import rank_menu
@@ -30,7 +30,7 @@ def start_menu():
     canvas.create_image(0, 0, image=bg_img, anchor='nw')
 
     # 创建游戏模式选择按钮
-    single_mode_button = tk.Button(root, text="人机模式", font=("华文行楷", 20),command=play_menu_robot)
+    single_mode_button = tk.Button(root, text="人机模式", font=("华文行楷", 20),command=robot_game)
     single_mode_button.place(relx=0.41, rely=0.25, relwidth=0.22, relheight=0.08)
     double_mode_button = tk.Button(root, text="双人对战", font=("华文行楷", 20),command=human_game)
     double_mode_button.place(relx=0.41, rely=0.37, relwidth=0.22, relheight=0.08)
