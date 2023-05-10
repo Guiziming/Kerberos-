@@ -21,7 +21,7 @@ def start_menu():
     root = tk.Toplevel()
     root.title("主菜单")
     center_window(root,630,627)
-    bg_img = tk.PhotoImage(file='E:\网络安全\代码\source\start_menu_final.png')
+    bg_img = tk.PhotoImage(file='E:\code\mycode\\source\start_menu_final.png')
 
     # 创建画布
     canvas = tk.Canvas(root, width=630, height=627)
@@ -30,10 +30,11 @@ def start_menu():
     canvas.create_image(0, 0, image=bg_img, anchor='nw')
 
     # 创建游戏模式选择按钮
-    single_mode_button = tk.Button(root, text="人机模式", font=("华文行楷", 20),command=robot_game)
-    single_mode_button.place(relx=0.41, rely=0.25, relwidth=0.22, relheight=0.08)
     double_mode_button = tk.Button(root, text="双人对战", font=("华文行楷", 20),command=human_game)
     double_mode_button.place(relx=0.41, rely=0.37, relwidth=0.22, relheight=0.08)
+    single_mode_button = tk.Button(root, text="人机模式", font=("华文行楷", 20),command=robot_game)
+    single_mode_button.place(relx=0.41, rely=0.25, relwidth=0.22, relheight=0.08)
+    
 
     # 创建商店按钮
     shop_button = tk.Button(root, text="商店", font=("华文行楷", 20),command=shop_menu)

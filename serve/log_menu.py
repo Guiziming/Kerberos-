@@ -5,10 +5,12 @@ from tkinter.messagebox import showinfo, showwarning, showerror
 from start_menu import start_menu
 import socket
 import os
+import time
+from C import get_key_cv
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 Image.MAX_IMAGE_PIXELS = None
 
-HOST='192.168.43.238'
+HOST_V_SERVE='192.168.43.238'
 PORT_V_SERVE = 65435
 def center_window(window, width, height):
     # 获取屏幕宽度和高度
@@ -27,13 +29,33 @@ def validate_login():
     username = username_entry.get()
     password = password_entry.get()
 
-    if username == "1" and password == "1":
+    #创建和服务端的通信
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client_socket:
+        client_socket.connect((HOST_V_SERVE, PORT_V_SERVE))
+        client_socket.sendall(b'2011')
+        client_socket.recv(1024)
+        print("我发送了消息类型")
+        message=username.encode()+b'|'+password.encode()
+        client_socket.sendall(message)
+        #接收到服务端发送过来的登录信息
+        check_message=client_socket.recv(1024)
+        check_message=check_message.decode()
+    if check_message=='1':
         showinfo(title = "五子棋",
               message = "登陆成功!")
+        client_socket.close()
         start_menu()
     else:
         showerror(title = "五子棋",
               message = "您的账户/密码有误!")
+
+    # if username == "1" and password == "1":
+    #     showinfo(title = "五子棋",
+    #           message = "登陆成功!")
+    #     start_menu()
+    # else:
+    #     showerror(title = "五子棋",
+    #           message = "您的账户/密码有误!")
 
 
 def log_menu():
@@ -46,7 +68,7 @@ def log_menu():
     canvas = tk.Canvas(root, height=630, width=627)
     canvas.pack()
     center_window(root,630,627)
-    img = Image.open('E:\网络安全\代码\source\sign_menu_new.png')  # 打开图片
+    img = Image.open('E:\code\mycode\\source\sign_menu_new.png')  # 打开图片
     photo = ImageTk.PhotoImage(img)  # 用PIL模块的PhotoImage打开
 
     canvas.create_image(0, 0, image=photo, anchor='nw')
@@ -77,7 +99,10 @@ def log_menu():
     # 运行主循环
     root.mainloop()
 
-os.system('python E:\网络安全\代码\\test\C.py')
-print("运行了Kerberos的C文件")
+# des_c_v=get_key_cv()
+# os.system('python E:\网络安全\代码\\test\C.py')
+# time.sleep(1)
+# print("运行了Kerberos的C文件")
+# print("我和服务器使用的DES KEY为: ",des_c_v)
 
 log_menu()

@@ -6,8 +6,8 @@ import socket
 import sys
 # from start_menu import start_menu
 
-HOST = '127.0.0.1'
-# HOST = '192.168.43.238'  # 服务端地址
+# HOST = '127.0.0.1'
+HOST = '192.168.43.238'  # 服务端地址
 PORT = 5000        # 服务端监听的端口号
 
 
@@ -89,10 +89,10 @@ def play_menu_human(client_socket,flag_color):
     center_window(root,1050,650)
     # 加载背景图片
     #kitty_besteng_new/yugui_new
-    img_board=tk.PhotoImage(file='E:\\网络安全\\代码\\source\\chess_board_new.png')
-    img_bchess=tk.PhotoImage(file='E:\\网络安全\\代码\\source\\heiqi_new.png')
-    img_wchess=tk.PhotoImage(file='E:\\网络安全\\代码\\source\\baiqi_new.png')
-    bg_img = tk.PhotoImage(file='E:\\网络安全\\代码\\source\\base_final3.png') #base_final3,ameng_final2,yugui_final2,kitty_final2
+    img_board=tk.PhotoImage(file='E:\code\mycode\\source\\chess_board_new.png')
+    img_bchess=tk.PhotoImage(file='E:\code\mycode\\source\\heiqi_new.png')
+    img_wchess=tk.PhotoImage(file='E:\code\mycode\\source\\baiqi_new.png')
+    bg_img = tk.PhotoImage(file='E:\code\mycode\\source\\base_final3.png') #base_final3,ameng_final2,yugui_final2,kitty_final2
     # 创建画布
     canvas = tk.Canvas(root, width=1050, height=650)
     canvas.pack()
@@ -215,7 +215,7 @@ def play_menu_human(client_socket,flag_color):
     #         canvas.create_image(i[0] * 40+13, i[1] * 40+9, image=img_bchess, anchor='nw')
     
    
-    username='2'
+    username='2011'
     client_socket.sendall(username.encode())
     print("我已发送自己的玩家信息给服务器!")
     game_message=client_socket.recv(1024)
@@ -351,7 +351,10 @@ def play_menu_human(client_socket,flag_color):
 def human_game():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client_socket:
         client_socket.connect((HOST, PORT))
-        
+        # type_message='2015'
+        # client_socket.sendall(type_message.encode())
+        # s_t=client_socket.recv(1024) 
+        # print(s_t)
         play_menu_human(client_socket,flag_color)   
 
 
